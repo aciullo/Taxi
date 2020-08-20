@@ -51,10 +51,12 @@ namespace Taxi.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Plaque")] TaxiEntity taxiEntity)
+        //#REM se borra el bindeo para el dia de manhana si agregamos otros campos no agregarlos uno x uno
+        public async Task<IActionResult> Create(TaxiEntity taxiEntity)
         {
             if (ModelState.IsValid)
             {
+                taxiEntity.Plaque = taxiEntity.Plaque.ToUpper();
                 _context.Add(taxiEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -83,7 +85,7 @@ namespace Taxi.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Plaque")] TaxiEntity taxiEntity)
+        public async Task<IActionResult> Edit(int id,  TaxiEntity taxiEntity)
         {
             if (id != taxiEntity.Id)
             {
@@ -94,6 +96,7 @@ namespace Taxi.Web.Controllers
             {
                 try
                 {
+                    taxiEntity.Plaque = taxiEntity.Plaque.ToUpper();
                     _context.Update(taxiEntity);
                     await _context.SaveChangesAsync();
                 }

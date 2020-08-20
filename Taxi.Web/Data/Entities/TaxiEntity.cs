@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Configuration;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
 
 namespace Taxi.Web.Data.Entities
 {
+   
     public class TaxiEntity
     {
         public int Id { get; set; }
@@ -11,5 +14,7 @@ namespace Taxi.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
 
         public string Plaque { get; set; }
+
+        
     }
 }
