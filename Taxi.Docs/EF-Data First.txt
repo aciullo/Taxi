@@ -1,0 +1,12 @@
+1)Inicializar la base de datos
+- Abrir La consola de administrador de nugets
+- Ejecutar sobre la solucion donde estan nuestros entities (proyecto web por ejemplo) el comando
+update-database
+
+2) Habilitar las migraciones
+- Ejecutar el comando, donde mensaje es como el comentario de commit
+add-migration mensaje
+
+3) Actualizar la base de datos con el comando
+update-database
+
