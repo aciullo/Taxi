@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -8,6 +9,7 @@ using Taxi.Web.Data.Entities;
 
 namespace Taxi.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TaxisController : Controller
     {
         private readonly DataContext _context;
@@ -31,7 +33,7 @@ namespace Taxi.Web.Controllers
                 return NotFound();
             }
 
-            var taxiEntity = await _context.Taxis
+            TaxiEntity taxiEntity = await _context.Taxis
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (taxiEntity == null)
             {
@@ -91,7 +93,7 @@ namespace Taxi.Web.Controllers
                 return NotFound();
             }
 
-            var taxiEntity = await _context.Taxis.FindAsync(id);
+            TaxiEntity taxiEntity = await _context.Taxis.FindAsync(id);
             if (taxiEntity == null)
             {
                 return NotFound();
@@ -139,29 +141,29 @@ namespace Taxi.Web.Controllers
 
 
         // GET: Taxis/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var taxiEntity = await _context.Taxis
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (taxiEntity == null)
-            {
-                return NotFound();
-            }
+        //    var taxiEntity = await _context.Taxis
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (taxiEntity == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(taxiEntity);
-        }
+        //    return View(taxiEntity);
+        //}
 
         // POST: Taxis/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        //  [HttpPost, ActionName("Delete")]
+        //  [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
         {
-            var taxiEntity = await _context.Taxis.FindAsync(id);
+            TaxiEntity taxiEntity = await _context.Taxis.FindAsync(id);
             _context.Taxis.Remove(taxiEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

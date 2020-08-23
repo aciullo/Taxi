@@ -15,6 +15,7 @@ using Taxi.Web.Data;
 using Taxi.Web.Data.Entities;
 using Taxi.Web.Helper;
 
+
 namespace Taxi.Web
 {
     public class Startup
@@ -54,6 +55,7 @@ namespace Taxi.Web
 
             services.AddTransient<SeedDb>();
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
